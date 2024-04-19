@@ -1,0 +1,65 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "http://localhost:8080"
+              - "http://localhost:8761"
+            allowedHeaders:
+              - "Content-Type"
+              - "text/plain"
+              - "Authorization"
+              - "Access-Control-Allow-Origin"
+            allowedMethods:
+              - GET
+              - POST
+              - OPTIONS
+              - PUT
+              - DELETE
+      routes:
+        - id: service-01
+          uri: lb://service-01
+          predicates:
+            - Path=/service-01/**
+          filters:
+            - AuthenticationFilter
+
+
+        #        - id: service-02
+#          uri: lb://service-02
+#          predicates:
+#            - Path=/service-02/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        - id: JWT
+#          uri: lb://JWT
+#          predicates:
+#            - Path=/auth/**
+#          filters:
+#            - AuthenticationFilter
+
+        - id: USER-HANDLE-API
+          uri: lb://USER-HANDLE-API
+          predicates:
+            - Path=/user-handle/**
+
+          filters:
+            - AuthenticationFilter
+
+        - id: ECHIKTSA-BACKEND
+          uri: lb://ECHIKTSA-BACKEND
+          predicates:
+            - Path=/echikitsa-backend/**
+          filters:
+            - AuthenticationFilter
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
