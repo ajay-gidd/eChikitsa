@@ -20,28 +20,6 @@ spring:
               - PUT
               - DELETE
       routes:
-        - id: service-01
-          uri: lb://service-01
-          predicates:
-            - Path=/service-01/**
-          filters:
-            - AuthenticationFilter
-
-
-        #        - id: service-02
-#          uri: lb://service-02
-#          predicates:
-#            - Path=/service-02/**
-#          filters:
-#            - AuthenticationFilter
-#
-#        - id: JWT
-#          uri: lb://JWT
-#          predicates:
-#            - Path=/auth/**
-#          filters:
-#            - AuthenticationFilter
-
         - id: USER-HANDLE-API
           uri: lb://USER-HANDLE-API
           predicates:
@@ -57,6 +35,12 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: USER-FILE-API
+          uri: lb://USER-FILE-API
+          predicates:
+            - Path=/file-handle/**
+          filters:
+            - AuthenticationFilter
 
 
 eureka:
