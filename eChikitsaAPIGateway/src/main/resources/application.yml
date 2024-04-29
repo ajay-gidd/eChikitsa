@@ -6,6 +6,11 @@ spring:
           '[/**]':
             allowedOrigins:
               - "http://localhost:3000"
+              - "http://localhost:3001"
+              - "http://localhost:3002"
+              - "http://localhost:3003"
+              - "http://localhost:3004"
+              - "http://localhost:3005"
               - "http://localhost:8080"
               - "http://localhost:8761"
             allowedHeaders:
@@ -13,12 +18,15 @@ spring:
               - "text/plain"
               - "Authorization"
               - "Access-Control-Allow-Origin"
+              - "Access-Control-Allow-Credentials"
             allowedMethods:
               - GET
               - POST
               - OPTIONS
               - PUT
               - DELETE
+            allowCredentials: true
+
       routes:
         - id: USER-HANDLE-API
           uri: lb://USER-HANDLE-API
@@ -41,6 +49,24 @@ spring:
             - Path=/file-handle/**
           filters:
             - AuthenticationFilter
+
+#        - id: CALLHANDLE1
+#          uri: lb:ws://CALLHANDLE
+#          predicates:
+#            - Path=/call-handle-websocket/**
+##          filters:
+##            - AuthenticationFilter
+#
+#        - id: CALLHANDLE2
+#          uri: lb://CALLHANDLE
+#          predicates:
+#            - Path=/call-handle/**
+#          filters:
+#            - AuthenticationFilter
+#  - id: websocket-good
+#    uri: ws://localhost:80
+#    predicates:
+#      - Path=/websocket-good/**
 
 
 eureka:
